@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Балхӣ Digital - Мавлоно Ҷалолуддин Балхӣ (Румӣ)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, .tajik-text {
+            direction: ltr !important;
+            font-family: "Noto Sans", "Arial", "Helvetica", sans-serif;
+            unicode-bidi: bidi-override;
+            transition: all 0.3s ease;
+        }
+        
+        .verse {
+            font-family: "Noto Sans", serif;
+            font-size: 1.5rem;
+            line-height: 2.5;
+        }
+        
+        .dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #9c7c5e;
+        }
+        
+        .search-highlight {
+            background-color: rgba(252, 211, 77, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        /* Force LTR for all elements */
+        * {
+            direction: ltr !important;
+            unicode-bidi: bidi-override;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+        
+        /* Floating action button */
+        .fab-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #d97706;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .fab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            background-color: #b45309;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Floating Action Button -->
+    <div class="fab-button tooltip" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up text-xl"></i>
+        <span class="tooltiptext">Ба боло</span>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-amber-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-book-open text-2xl text-amber-800"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Балхӣ Digital</h1>
+                        <p class="text-amber-200 text-sm">Мавлоно Ҷалолуддин Балхӣ (Румӣ)</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full bg-amber-900 hover:bg-amber-700 transition">
+                        <i class="fas fa-moon text-white"></i>
+                    </button>
+                    <nav class="hidden md:block">
+                        <ul class="flex space-x-6">
+                            <li><a href="#home" class="hover:text-amber-200 transition">Асосӣ</a></li>
+                            <li><a href="#poems" class="hover:text-amber-200 transition">Ашъор</a></li>
+                            <li><a href="#biography" class="hover:text-amber-200 transition">Зиндагинома</a></li>
+                            <li><a href="#commentary" class="hover:text-amber-200 transition">Тафсир</a></li>
+                            <li><a href="#search" class="hover:text-amber-200 transition">Ҷустуҷӯ</a></li>
+                        </ul>
+                    </nav>
+                    <button class="md:hidden p-2" id="mobileMenuButton">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-amber-900 py-4">
+            <div class="container mx-auto px-4">
+                <ul class="flex flex-col space-y-3">
+                    <li><a href="#home" class="block hover:text-amber-200 transition py-2">Асосӣ</a></li>
+                    <li><a href="#poems" class="block hover:text-amber-200 transition py-2">Ашъор</a></li>
+                    <li><a href="#biography" class="block hover:text-amber-200 transition py-2">Зиндагинома</a></li>
+                    <li><a href="#commentary" class="block hover:text-amber-200 transition py-2">Тафсир</a></li>
+                    <li><a href="#search" class="block hover:text-amber-200 transition py-2">Ҷустуҷӯ</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-16 bg-gradient-to-r from-amber-600 to-amber-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">Мавлоно Ҷалолуддин Балхӣ</h2>
+                    <p class="text-xl mb-8 tajik-text">"Ҳар кас аз завқи хеш машҳур аст, ман аз ғам машҳур ҳастам"</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#poems" class="bg-white text-amber-800 px-6 py-3 rounded-lg font-bold hover:bg-amber-100 transition flex items-center">
+                            <i class="fas fa-book-open mr-2"></i> Оғози хондан
+                        </a>
+                        <a href="#biography" class="border-2 border-white px-6 py-3 rounded-lg font-bold hover:bg-white hover:text-amber-800 transition flex items-center">
+                            <i class="fas fa-user mr-2"></i> Зиндагинома
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white bg-opacity-20 p-8 rounded-lg backdrop-blur-sm border border-white border-opacity-30">
+                        <div id="verseRotator" class="verse text-2xl text-center tajik-text">
+                            <div class="fade-in">
+                                <p>"Биё, биё, ҳар чӣ ҳастӣ, биё,</p>
+                                <p>Гоҳ кофирӣ, гоҳ мусулмонӣ, биё."</p>
+                                <p class="text-sm mt-4">— Маснавӣ</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <button id="pauseVerse" class="bg-white bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 transition">
+                                <i class="fas fa-pause"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Verse -->
+    <section class="bg-amber-100 py-8 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold text-amber-800 dark:text-amber-300 mb-2">Назмҳои рӯз</h3>
+                    <p class="verse tajik-text">"Дар дили ҳар зере осмон аст, дар пои ҳар хоке дарё аст."</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">— Дивони Шамси Табрезӣ</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="shareVerse('telegram')" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition flex items-center">
+                        <i class="fab fa-telegram mr-2"></i> Нашр
+                    </button>
+                    <button onclick="shareVerse('twitter')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
+                        <i class="fab fa-twitter mr-2"></i> Twitter
+                    </button>
+                    <button onclick="bookmarkVerse()" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition flex items-center">
+                        <i class="fas fa-bookmark mr-2"></i> Нигоҳдорӣ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poems Section -->
+    <section id="poems" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 dark:text-white">Ашъори Мавлоно</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Masnavi Card -->
+                <div class="bg-amber-50 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-amber-200 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-scroll text-6xl text-amber-700 dark:text-amber-500 transition-transform duration-500 group-hover:scale-110"></i>
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button onclick="showPoemCollection('masnavi')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
+                                Хондан
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Маснавӣ</h3>
+                        <p class="text-gray-600 dark:text-gray-300 tajik-text mb-4">Маснавии маънавӣ - ашҳартарин асари адабии Мавлоно</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-amber-700 dark:text-amber-400">25,632 байт</span>
+                            <button onclick="showPoemCollection('masnavi')" class="text-amber-600 dark:text-amber-400 font-bold hover:underline flex items-center">
+                                Хондан <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Divan-e Shams Card -->
+                <div class="bg-amber-50 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-amber-300 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-sun text-6xl text-amber-700 dark:text-amber-500 transition-transform duration-500 group-hover:scale-110"></i>
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button onclick="showPoemCollection('divan')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
+                                Хондан
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Дивони Шамс</h3>
+                        <p class="text-gray-600 dark:text-gray-300 tajik-text mb-4">Ғазалҳо ва рубоиҳо ба номи устоди Мавлоно</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-amber-700 dark:text-amber-400">3,456 ғазал</span>
+                            <button onclick="showPoemCollection('divan')" class="text-amber-600 dark:text-amber-400 font-bold hover:underline flex items-center">
+                                Хондан <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rubaiyat Card -->
+                <div class="bg-amber-50 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-amber-400 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-star text-6xl text-amber-700 dark:text-amber-500 transition-transform duration-500 group-hover:scale-110"></i>
+                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button onclick="showPoemCollection('rubaiyat')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
+                                Хондан
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 dark:text-white">Рубоиёт</h3>
+                        <p class="text-gray-600 dark:text-gray-300 tajik-text mb-4">Рубоиҳои пурмаънои Мавлоно дар бораи ишқ ва маърифат</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-amber-700 dark:text-amber-400">1,980 рубоӣ</span>
+                            <button onclick="showPoemCollection('rubaiyat')" class="text-amber-600 dark:text-amber-400 font-bold hover:underline flex items-center">
+                                Хондан <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="showAllPoems()" class="inline-block bg-amber-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-amber-700 transition flex items-center mx-auto">
+                    Дидани ҳамаи ашъор <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section id="biography" class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 dark:text-white">Зиндагинома</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Timeline -->
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-1/2 h-full w-1 bg-amber-500 transform -translate-x-1/2"></div>
+                    
+                    <!-- Timeline items -->
+                    <div class="mb-8">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md relative timeline-item">
+                                    <h3 class="text-xl font-bold text-amber-700 dark:text-amber-400">1207 - Таваллуд</h3>
+                                    <p class="tajik-text mt-2 dark:text-gray-300">Дар шаҳри Балх (ҳоло Афғонистон) дар оилаи олим ва файласуф таваллуд шудааст. Падараш Баҳоуддини Валад аз бузургони илму тасаввуф буд.</p>
+                                    <button onclick="showBiographyDetail('birth')" class="mt-4 text-amber-600 dark:text-amber-400 hover:underline flex items-center">
+                                        Маълумоти бештар <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2"></div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md relative timeline-item">
+                                    <h3 class="text-xl font-bold text-amber-700 dark:text-amber-400">1219 - Ҳиҷрат</h3>
+                                    <p class="tajik-text mt-2 dark:text-gray-300">Ҳангоми ҳуҷуми муғулҳо ба оилааш ба Қуня (Туркия) ҳиҷрат мекунанд. Ин сафар таъсири калони рӯи тафаккури Мавлоно гузошт.</p>
+                                    <button onclick="showBiographyDetail('migration')" class="mt-4 text-amber-600 dark:text-amber-400 hover:underline flex items-center">
+                                        Маълумоти бештар <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md relative timeline-item">
+                                    <h3 class="text-xl font-bold text-amber-700 dark:text-amber-400">1244 - Воситаи Шамс</h3>
+                                    <p class="tajik-text mt-2 dark:text-gray-300">Бо Шамси Табрезӣ вохӯрда, таҳти таъсири ӯ қаламдории шеърро оғоз мекунад. Ин вохӯрӣ зиндагии Мавлоноро комилан тағйир дод.</p>
+                                    <button onclick="showBiographyDetail('shams')" class="mt-4 text-amber-600 dark:text-amber-400 hover:underline flex items-center">
+                                        Маълумоти бештар <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2"></div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md relative timeline-item">
+                                    <h3 class="text-xl font-bold text-amber-700 dark:text-amber-400">1273 - Вафот</h3>
+                                    <p class="tajik-text mt-2 dark:text-gray-300">Дар Қуня вафот карда, мақбараи ӯ ҳоло ҷозибаи зиёрат гардидааст. Ҳар сол аз ҷаҳон ҳазорон зоир ба қабри ӯ меоянд.</p>
+                                    <button onclick="showBiographyDetail('death')" class="mt-4 text-amber-600 dark:text-amber-400 hover:underline flex items-center">
+                                        Маълумоти бештар <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <button onclick="showFullBiography()" class="inline-block bg-amber-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-amber-700 transition flex items-center mx-auto">
+                        Маълумоти комил <i class="fas fa-book-open ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commentary Section -->
+    <section id="commentary" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 dark:text-white">Тафсир ва Шарҳҳо</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-amber-50 dark:bg-gray-700 rounded-lg shadow-md p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-amber-800 dark:text-amber-400">Тафсири олимон</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm hover:shadow-md transition">
+                            <h4 class="font-bold mb-2 dark:text-white">"Биё, биё, ҳар чӣ ҳастӣ, биё"</h4>
+                            <p class="tajik-text text-sm dark:text-gray-300">Ин шеър даъвати умумии Мавлоно ба ҳамаи башар аст, ки ғайр аз қабилият ва мазҳаб ба суҳбати ӯ биоянд.</p>
+                            <p class="text-xs text-gray-500 mt-2">— Доктор Аҳмади Ҷавҳарӣ</p>
+                            <button onclick="showCommentaryDetail('come')" class="mt-3 text-amber-600 dark:text-amber-400 text-sm hover:underline flex items-center">
+                                Хондани тамоми тафсир <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm hover:shadow-md transition">
+                            <h4 class="font-bold mb-2 dark:text-white">"Ман аз ғам машҳур ҳастам"</h4>
+                            <p class="tajik-text text-sm dark:text-gray-300">Ғами Мавлоно на ғами оддӣ, балки ғами ҷудоӣ аз Худо ва ишқи ҳақиқӣ мебошад.</p>
+                            <p class="text-xs text-gray-500 mt-2">— Проф. Муҳаммадризо Шафӣ</p>
+                            <button onclick="showCommentaryDetail('sorrow')" class="mt-3 text-amber-600 dark:text-amber-400 text-sm hover:underline flex items-center">
+                                Хондани тамоми тафсир <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-amber-800 dark:text-amber-400">Шарҳи ашъор</h3>
+                    <div class="mb-6">
+                        <div class="verse tajik-text bg-amber-50 dark:bg-gray-600 p-4 rounded-lg mb-3 hover:shadow-sm transition">
+                            "Дар дили ҳар зере осмон аст, дар пои ҳар хоке дарё аст."
+                        </div>
+                        <p class="tajik-text dark:text-gray-300">Ин байти маъноӣ нигоҳи Мавлоноро ба ҷаҳон ва инсон нигоҳ медорад, ки ҳар чизе зери пӯшаи зоҳирӣ ҷаҳони дигар дорад.</p>
+                        <button onclick="showVerseAnalysis('sky')" class="mt-3 text-amber-600 dark:text-amber-400 hover:underline flex items-center">
+                            Таҳлили пурра <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Ҳамаи тафсирҳо аз санҷиши мутахассисони адабӣ гузаштаанд</div>
+                        <button onclick="showAllCommentaries()" class="text-amber-600 dark:text-amber-400 font-bold hover:underline flex items-center">
+                            Дидани ҳамаи тафсирҳо <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 dark:text-white">Ҷустуҷӯи ашъор</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 mb-8">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Калима ё ибораро нависед..." 
+                               class="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg pr-12 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <button id="searchButton" onclick="performSearch()" class="absolute right-4 top-4 text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition">
+                            <i class="fas fa-search text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Ҷустуҷӯ бо: </span>
+                        <button onclick="quickSearch('ишқ')" class="text-sm bg-amber-100 dark:bg-gray-700 px-3 py-1 rounded-full hover:bg-amber-200 dark:hover:bg-gray-600 transition">ишқ</button>
+                        <button onclick="quickSearch('маърифат')" class="text-sm bg-amber-100 dark:bg-gray-700 px-3 py-1 rounded-full hover:bg-amber-200 dark:hover:bg-gray-600 transition">маърифат</button>
+                        <button onclick="quickSearch('Худо')" class="text-sm bg-amber-100 dark:bg-gray-700 px-3 py-1 rounded-full hover:bg-amber-200 dark:hover:bg-gray-600 transition">Худо</button>
+                        <button onclick="quickSearch('дил')" class="text-sm bg-amber-100 dark:bg-gray-700 px-3 py-1 rounded-full hover:bg-amber-200 dark:hover:bg-gray-600 transition">дил</button>
+                    </div>
+                </div>
+                
+                <!-- Search Results -->
+                <div id="searchResults" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold dark:text-white">Натиҷаҳои ҷустуҷӯ</h3>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Намоиш 1-5 аз 24 натиҷа</div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Result 1 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                            <div class="verse tajik-text mb-4">
+                                "Биё, биё, ҳар чӣ ҳастӣ, биё,<br>
+                                Гоҳ кофирӣ, гоҳ мусулмонӣ, биё."
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-amber-700 dark:text-amber-400">Маснавӣ, китоби 1</span>
+                                <div class="flex space-x-3">
+                                    <button onclick="bookmarkSearchResult(1)" class="text-gray-500 hover:text-amber-600 dark:hover:text-amber-400">
+                                        <i class="far fa-bookmark"></i>
+                                    </button>
+                                    <button onclick="shareSearchResult(1)" class="text-gray-500 hover:text-amber-600 dark:hover:text-amber-400">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Result 2 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                            <div class="verse tajik-text mb-4">
+                                "Дар дили ҳар зере осмон аст,<br>
+                                Дар пои ҳар хоке дарё аст."
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-amber-700 dark:text-amber-400">Дивони Шамс, ғазали 112</span>
+                                <div class="flex space-x-3">
+                                    <button onclick="bookmarkSearchResult(2)" class="text-gray-500 hover:text-amber-600 dark:hover:text-amber-400">
+                                        <i class="far fa-bookmark"></i>
+                                    </button>
+                                    <button onclick="shareSearchResult(2)" class="text-gray-500 hover:text-amber-600 dark:hover:text-amber-400">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <button onclick="paginateSearchResults('prev')" class="px-4 py-2 border rounded-lg text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-600 hover:bg-amber-50 dark:hover:bg-gray-700">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button onclick="paginateSearchResults(1)" class="px-4 py-2 bg-amber-600 text-white rounded-lg">1</button>
+                            <button onclick="paginateSearchResults(2)" class="px-4 py-2 border rounded-lg hover:bg-amber-50 dark:hover:bg-gray-700">2</button>
+                            <button onclick="paginateSearchResults(3)" class="px-4 py-2 border rounded-lg hover:bg-amber-50 dark:hover:bg-gray-700">3</button>
+                            <button onclick="paginateSearchResults('next')" class="px-4 py-2 border rounded-lg text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-600 hover:bg-amber-50 dark:hover:bg-gray-700">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Advanced Search -->
+                <div class="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-6 dark:text-white">Ҷустуҷӯи пешрафта</h3>
+                    
+                    <form id="advancedSearchForm" onsubmit="event.preventDefault(); performAdvancedSearch();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-300 mb-2">Китоб</label>
+                                <select id="bookSelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                    <option value="all">Ҳамаи китобҳо</option>
+                                    <option value="masnavi">Маснавӣ</option>
+                                    <option value="divan">Дивони Шамс</option>
+                                    <option value="rubaiyat">Рубоиёт</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-300 mb-2">Навъ</label>
+                                <select id="typeSelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                    <option value="all">Ҳамаи навъҳо</option>
+                                    <option value="ghazal">Ғазал</option>
+                                    <option value="rubai">Рубойӣ</option>
+                                    <option value="bait">Байт</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-gray-700 dark:text-gray-300 mb-2">Калимаҳои калидӣ</label>
+                            <input type="text" id="keywordsInput" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white" placeholder="Калимаҳоро бо вергул (, ҷудо кунед)">
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button type="submit" class="bg-amber-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-amber-700 transition flex items-center">
+                                <i class="fas fa-search mr-2"></i> Ҷустуҷӯи пешрафта
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Балхӣ Digital</h3>
+                    <p class="tajik-text">Портали комил оид ба осори Мавлоно Ҷалолуддин Балхӣ ба забони тоҷикӣ</p>
+                    <div class="mt-4">
+                        <button onclick="showAboutModal()" class="text-amber-200 hover:text-white transition">Дар бораи лоиҳа</button>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Мундариҷа</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#poems" class="hover:text-amber-200 transition">Ашъор</a></li>
+                        <li><a href="#biography" class="hover:text-amber-200 transition">Зиндагинома</a></li>
+                        <li><a href="#commentary" class="hover:text-amber-200 transition">Тафсирҳо</a></li>
+                        <li><a href="#" class="hover:text-amber-200 transition">Китобшиносӣ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Пайвандҳо</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="showContactModal()" class="hover:text-amber-200 transition">Алоқа</button></li>
+                        <li><button onclick="showHelpModal()" class="hover:text-amber-200 transition">Роҳнамои истифода</button></li>
+                        <li><button onclick="showApiModal()" class="hover:text-amber-200 transition">API барои таҳқиқот</button></li>
+                        <li><button onclick="showContributeModal()" class="hover:text-amber-200 transition">Ҳиссагузорӣ</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Обуна шавед</h4>
+                    <p class="tajik-text mb-4">Ба мо пайваст шавед то ахбори навро қабул кунед</p>
+                    <div class="flex">
+                        <input type="email" id="subscribeEmail" placeholder="Суроғаи электронӣ" class="px-4 py-2 rounded-l-lg w-full text-gray-800">
+                        <button onclick="subscribeNewsletter()" class="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-2xl hover:text-amber-200 transition"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-2xl hover:text-amber-200 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-amber-200 transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-8 pt-8 text-center">
+                <p class="tajik-text">Ҳамаи ҳуқуқҳо маҳфуз аст © 2023 Балхӣ Digital</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="aboutModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold dark:text-white">Дар бораи лоиҳа</h3>
+                <button onclick="hideModal('aboutModal')" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tajik-text dark:text-gray-300">
+                <p class="mb-4">Балхӣ Digital лоиҳаи рақамиест, ки бо мақсади нигоҳдории осори Мавлоно Ҷалолуддин Балхӣ (Румӣ) ба забони тоҷикӣ ва фароҳам овардани дастрасии осон ба ин осор ба вуҷуд омадааст.</p>
+                <p class="mb-4">Ин лоиҳа дар асоси тарҷумаҳои муътабари тоҷикӣ ва таҳқиқоти илмӣ таҳия шудааст. Мо кӯшиш менамоем, ки осори Мавлоноро бо тартиби мувофиқ ва бо тавзеҳоти зарурӣ ба хонандагон пешниҳод намоем.</p>
+                <p>Лоиҳа ҳоло дар ҳолати рушд аст ва мо ҳамеша барои такмили он кӯшиш менамоем. Агар шумо ҳам пешниҳод ё тавсияе доред, лутфан бо мо дар тамос шавед.</p>
+            </div>
+            <div class="mt-6">
+                <button onclick="hideModal('aboutModal')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
+                    Фаҳмидам
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold dark:text-white">Алоқа бо мо</h3>
+                <button onclick="hideModal('contactModal')" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tajik-text dark:text-gray-300">
+                <p class="mb-4">Шумо метавонед бо роҳҳои зерин бо дастгоҳи идоракунандаи лоиҳаи Балхӣ Digital дар тамос шавед:</p>
+                <ul class="space-y-2 mb-4">
+                    <li><i class="fas fa-envelope mr-2 text-amber-600"></i> info@balkhidigital.tj</li>
+                    <li><i class="fas fa-phone mr-2 text-amber-600"></i> +992 123 456 789</li>
+                    <li><i class="fab fa-telegram mr-2 text-amber-600"></i> @balkhidigital</li>
+                </ul>
+                <p>Ҳамчунин шумо метавонед паёми худро аз формҳои зерин ба мо бифиристед:</p>
+            </div>
+            <form class="mt-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Ном</label>
+                    <input type="text" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Почтаи электронӣ</label>
+                    <input type="email" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Паём</label>
+                    <textarea class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white" rows="4"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="hideModal('contactModal')" class="border border-gray-300 dark:border-gray-600 px-6 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        Бекор кардан
+                    </button>
+                    <button type="submit" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
+                        Фиристодани паём
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved user preference, if any, on load of the website
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun text-white"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                themeToggle.innerHTML = '<i class="fas fa-sun text-white"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-white"></i>';
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Verse Rotator
+        const verses = [
+            {
+                text: '"Биё, биё, ҳар чӣ ҳастӣ, биё,<br>Гоҳ кофирӣ, гоҳ мусулмонӣ, биё."',
+                source: '— Маснавӣ'
+            },
+            {
+                text: '"Дар дили ҳар зере осмон аст,<br>Дар пои ҳар хоке дарё аст."',
+                source: '— Дивони Шамс'
+            },
+            {
+                text: '"Ҳар кас аз завқи хеш машҳур аст,<br>Ман аз ғам машҳур ҳастам."',
+                source: '— Дивони Шамс'
+            },
+            {
+                text: '"Ишқ омехта бо ҳама чиз аст,<br>Аммо ҳеҷ чиз ба монанди ӯ нест."',
+                source: '— Маснавӣ'
+            }
+        ];
+        
+        let currentVerse = 0;
+        const verseContainer = document.getElementById('verseRotator');
+        let verseInterval;
+        let isVersePaused = false;
+        const pauseVerseButton = document.getElementById('pauseVerse');
+        
+        function rotateVerse() {
+            if (!isVersePaused) {
+                currentVerse = (currentVerse + 1) % verses.length;
+                verseContainer.innerHTML = `
+                    <div class="fade-in">
+                        <p>${verses[currentVerse].text}</p>
+                        <p class="text-sm mt-4">${verses[currentVerse].source}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function startVerseRotation() {
+            verseInterval = setInterval(rotateVerse, 5000);
+        }
+        
+        startVerseRotation();
+        
+        pauseVerseButton.addEventListener('click', () => {
+            isVersePaused = !isVersePaused;
+            if (isVersePaused) {
+                clearInterval(verseInterval);
+                pauseVerseButton.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                startVerseRotation();
+                pauseVerseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        });
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchResults = document.getElementById('searchResults');
+        
+        function performSearch() {
+            if (searchInput.value.trim() !== '') {
+                searchResults.classList.remove('hidden');
+                // Scroll to results
+                searchResults.scrollIntoView({ behavior: 'smooth' });
+                // In a real implementation, you would fetch search results here
+            }
+        }
+        
+        function quickSearch(term) {
+            searchInput.value = term;
+            performSearch();
+        }
+        
+        function performAdvancedSearch() {
+            const book = document.getElementById('bookSelect').value;
+            const type = document.getElementById('typeSelect').value;
+            const keywords = document.getElementById('keywordsInput').value;
+            
+            // Here you would implement the advanced search logic
+            console.log(`Advanced search: Book=${book}, Type=${type}, Keywords=${keywords}`);
+            
+            // For demo purposes, just show the results section
+            searchResults.classList.remove('hidden');
+            searchResults.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function paginateSearchResults(page) {
+            console.log(`Navigate to page ${page}`);
+            // Implement pagination logic here
+        }
+        
+        function bookmarkSearchResult(id) {
+            console.log(`Bookmarked search result ${id}`);
+            alert(`Назм бо ID ${id} ба феҳристи нигоҳдоштаҳо илова шуд`);
+        }
+        
+        function shareSearchResult(id) {
+            console.log(`Shared search result ${id}`);
+            alert(`Назм бо ID ${id} ба воситаҳо иҷтимоӣ нашр карда шуд`);
+        }
+        
+        // Share functionality
+        function shareVerse(platform) {
+            const currentVerseText = verses[currentVerse].text.replace(/<br>/g, '\n');
+            const shareText = `${currentVerseText}\n\n${verses[currentVerse].source}\n\nҚисмати аз Балхӣ Digital`;
+            
+            let url = '';
+            switch(platform) {
+                case 'telegram':
+                    url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareText)}`;
+                    break;
+                case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+                    break;
+            }
+            
+            window.open(url, '_blank');
+        }
+        
+        function bookmarkVerse() {
+            console.log('Verse bookmarked');
+            alert('Назми рӯз ба феҳристи нигоҳдоштаҳо илова шуд');
+        }
+        
+        // Poem collection functions
+        function showPoemCollection(collection) {
+            console.log(`Showing ${collection} collection`);
+            alert(`Нигоҳдошти ашъори ${collection} нишон дода мешавад`);
+        }
+        
+        function showAllPoems() {
+            console.log('Showing all poems');
+            alert('Ҳамаи ашъор нишон дода мешавад');
+        }
+        
+        // Biography functions
+        function showBiographyDetail(section) {
+            console.log(`Showing biography detail for ${section}`);
+            alert(`Тафсилоти зиндагинома барои ${section} нишон дода мешавад`);
+        }
+        
+        function showFullBiography() {
+            console.log('Showing full biography');
+            alert('Зиндагиномаи пурра нишон дода мешавад');
+        }
+        
+        // Commentary functions
+        function showCommentaryDetail(topic) {
+            console.log(`Showing commentary detail for ${topic}`);
+            alert(`Тафсири пурра барои ${topic} нишон дода мешавад`);
+        }
+        
+        function showVerseAnalysis(verse) {
+            console.log(`Showing analysis for ${verse}`);
+            alert(`Таҳлили пурра барои назм нишон дода мешавад`);
+        }
+        
+        function showAllCommentaries() {
+            console.log('Showing all commentaries');
+            alert('Ҳамаи тафсирҳо нишон дода мешавад');
+        }
+        
+        // Modal functions
+        function showAboutModal() {
+            document.getElementById('aboutModal').classList.remove('hidden');
+        }
+        
+        function showContactModal() {
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+        
+        function showHelpModal() {
+            alert('Модали кӯмак нишон дода мешавад');
+        }
+        
+        function showApiModal() {
+            alert('Модали API нишон дода мешавад');
+        }
+        
+        function showContributeModal() {
+            alert('Модали ҳиссагузорӣ нишон дода мешавад');
+        }
+        
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+        
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            const email = document.getElementById('subscribeEmail').value;
+            if (email && email.includes('@')) {
+                alert(`Ташаккур барои обуна! Шумо паёми тасдиқро ба ${email} хоҳед гирифт.`);
+                document.getElementById('subscribeEmail').value = '';
+            } else {
+                alert('Лутфан почтаи электронии дурустро ворид кунед');
+            }
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Show/hide floating action button based on scroll position
+        window.addEventListener('scroll', function() {
+            const fab = document.querySelector('.fab-button');
+            if (window.pageYOffset > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
